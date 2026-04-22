@@ -1,0 +1,67 @@
+"""Six core experiment configs for the speculative-decoding benchmark."""
+from dataclasses import dataclass, field
+from typing import Optional
+
+
+@dataclass
+class ExpConfig:
+    name: str
+    target_model: str
+    dtype: str                # "bfloat16" or "float16"
+    dataset: str              # "mt_bench" or "ru_arena_hard"
+    method: str               # "baseline" | "ngram" | "eagle3"
+    draft_model: Optional[str] = None
+    num_speculative_tokens: int = 5
+    prompt_lookup_min: int = 2
+    prompt_lookup_max: int = 4
+    max_model_len: int = 4096
+    gpu_memory_utilization: float = 0.9
+    extra: dict = field(default_factory=dict)
+
+
+QWEN = "Qwen/Qwen3-8B"
+AVIBE = "AvitoTech/avibe"
+QWEN_EAGLE = "AngelSlim/Qwen3-8B_eagle3"
+AVIBE_EAGLE = "AvitoTech/avibe-eagle"
+
+
+CONFIGS: dict[str, ExpConfig] = {
+    "qwen_baseline": ExpConfig(
+        name="qwen_baseline",
+        target_model=QWEN, dtype="bfloat16",
+        dataset="mt_bench", method="baseline",
+    ),
+    "qwen_ngram": ExpConfig(
+        name="qwen_ngram",
+        target_model=QWEN, dtype="bfloat16",
+        dataset="mt_bench", method="ngram",
+    ),
+    "qwen_eagle3": ExpConfig(
+        name="qwen_eagle3",
+        target_model=QWEN, dtype="bfloat16",
+        dataset="mt_bench", method="eagle3",
+        draft_model=QWEN_EAGLE,
+    ),
+    "avibe_baseline": ExpConfig(
+        name="avibe_baseline",
+        target_model=AVIBE, dtype="float16",
+        dataset="ru_arena_hard", method="baseline",
+    ),
+    "avibe_ngram": ExpConfig(
+        name="avibe_ngram",
+        target_model=AVIBE, dtype="float16",
+        dataset="ru_arena_hard", method="ngram",
+    ),
+    "avibe_eagle3": ExpConfig(
+        name="avibe_eagle3",
+        target_model=AVIBE, dtype="float16",
+        dataset="ru_arena_hard", method="eagle3",
+        draft_model=AVIBE_EAGLE,
+    ),
+}
+
+
+def get(name: str) -> ExpConfig:
+    if name not in CONFIGS:
+        raise KeyError(f"unknown config {name!r}; choose from {sorted(CONFIGS)}")
+    return CONFIGS[name]
