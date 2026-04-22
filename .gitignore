@@ -1,6 +1,10 @@
 results/
 plots/
 data/
+eagle_out/
+eagle_hf_ckpt/
+eagle_utils.py
 __pycache__/
 *.pyc
+.DS_Store
 .venv/
