@@ -23,13 +23,28 @@ def _ensure_mt_bench() -> None:
 def _ensure_ru_arena() -> None:
     if RU_ARENA_PATH.exists():
         return
-    from datasets import load_dataset
+    # The repo ships multiple JSONL files with different schemas (prompts +
+    # reference-answer dumps), which trips up `datasets.load_dataset`. Pull the
+    # single prompts file directly via huggingface_hub instead.
+    from huggingface_hub import hf_hub_download
+    import random
+
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     print(f"downloading ru-arena-hard → {RU_ARENA_PATH}")
-    ds = load_dataset("t-tech/ru-arena-hard", split="train")
-    ds = ds.shuffle(seed=SEED)
+    src = hf_hub_download(
+        repo_id="t-tech/ru-arena-hard",
+        filename="data/question.jsonl",
+        repo_type="dataset",
+    )
+    rows = []
+    with open(src, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                rows.append(json.loads(line))
+    random.Random(SEED).shuffle(rows)
     with RU_ARENA_PATH.open("w", encoding="utf-8") as f:
-        for x in ds:
+        for x in rows:
             f.write(json.dumps(x, ensure_ascii=False) + "\n")
 
 
