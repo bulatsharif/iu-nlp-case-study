@@ -46,3 +46,7 @@ bash scripts/run_one.sh qwen_eagle3
 - `plots/throughput.png` — tokens/sec per config, colored by method family.
 
 `analyze.py` aligns each spec-method row to its baseline by `(target, prompt_idx)` before taking ratios — averaging tok/s first would hide variance.
+
+## Training sub-experiment
+
+See [`training/`](training/) — trains an EAGLE3 draft module on `meta-llama/Llama-3.2-1B` using 20k Daring-Anteater samples for 1 epoch, then benchmarks it on MT-Bench only. Self-contained: `bash training/run_experiment.sh` trains → evaluates baseline → evaluates trained EAGLE3 → plots speedup.
