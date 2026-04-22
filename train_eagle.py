@@ -10,9 +10,11 @@ from pathlib import Path
 import transformers
 
 ROOT = Path(__file__).parent
+# Pinned: main/ has been refactored past the {LazySupervisedDataset,
+# DataCollatorWithPadding} API this script relies on (see PR #668, Feb 2026).
 EAGLE_UTILS_URL = (
     "https://raw.githubusercontent.com/NVIDIA/Model-Optimizer/"
-    "main/examples/speculative_decoding/eagle_utils.py"
+    "0.27.0/examples/speculative_decoding/eagle_utils.py"
 )
 EAGLE_UTILS_PATH = ROOT / "eagle_utils.py"
 
@@ -143,7 +145,7 @@ def main() -> None:
     )
     trainer = transformers.Trainer(
         model=model,
-        tokenizer=tokenizer,
+        processing_class=tokenizer,
         args=args,
         train_dataset=train_ds,
         eval_dataset=eval_ds,
@@ -159,10 +161,15 @@ def main() -> None:
 
     extract_and_plot_loss(trainer)
 
-    from modelopt.torch.export import export_hf_checkpoint
+    # export_speculative_decoding writes a draft-only checkpoint in the
+    # deployment format vLLM expects (architecture `LlamaForCausalLMEagle3`,
+    # single `layers.0.*` decoder, no `eagle_module.` prefix, no base-model
+    # weights). `export_hf_checkpoint` by contrast produces a "unified" dump
+    # that vLLM cannot load for EAGLE3.
+    from modelopt.torch.export import export_speculative_decoding
     model.eval()
-    export_hf_checkpoint(model, export_dir=str(EXPORT_DIR))
-    print(f"exported unified HF checkpoint → {EXPORT_DIR}")
+    export_speculative_decoding(model, export_dir=str(EXPORT_DIR))
+    print(f"exported EAGLE3 draft checkpoint → {EXPORT_DIR}")
 
 
 if __name__ == "__main__":

@@ -25,6 +25,7 @@ def build_llm(cfg: configs.ExpConfig):
         dtype=cfg.dtype,
         max_model_len=cfg.max_model_len,
         gpu_memory_utilization=cfg.gpu_memory_utilization,
+        enforce_eager=cfg.enforce_eager,
         trust_remote_code=True,
     )
 
