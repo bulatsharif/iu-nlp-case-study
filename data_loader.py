@@ -23,9 +23,6 @@ def _ensure_mt_bench() -> None:
 def _ensure_ru_arena() -> None:
     if RU_ARENA_PATH.exists():
         return
-    # The repo ships multiple JSONL files with different schemas (prompts +
-    # reference-answer dumps), which trips up `datasets.load_dataset`. Pull the
-    # single prompts file directly via huggingface_hub instead.
     from huggingface_hub import hf_hub_download
     import random
 

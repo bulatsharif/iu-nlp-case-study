@@ -1,0 +1,78 @@
+config_name,dataset,category,prompt_idx,wall_s,out_tokens,tok_per_s
+avibe_baseline,ru_arena_hard,Binance USDT Historical Data,3,5.2383,512,97.74
+avibe_baseline,ru_arena_hard,Prompt Engineering Essentials,4,5.3468,512,95.76
+avibe_baseline,ru_arena_hard,Python Looping and Counting,5,3.8002,371,97.63
+avibe_baseline,ru_arena_hard,Grocery Industry Disruption,6,5.2654,512,97.24
+avibe_baseline,ru_arena_hard,Conflicting Instructions Challenge,7,5.2493,512,97.54
+avibe_baseline,ru_arena_hard,"Bob, Alice, Relationships & Interactions",8,5.2467,512,97.59
+avibe_baseline,ru_arena_hard,Local LLM Deployment & Specs,9,5.2549,512,97.43
+avibe_baseline,ru_arena_hard,Computing Standard Deviation,10,5.2748,512,97.06
+avibe_baseline,ru_arena_hard,Character Indexing and Counting,11,5.2467,512,97.58
+avibe_baseline,ru_arena_hard,Rust Structs and Traits,12,5.4068,512,94.69
+avibe_baseline,ru_arena_hard,Excel Column Addressing,13,5.2423,512,97.67
+avibe_baseline,ru_arena_hard,Advanced TypeScript Concepts,14,4.5803,447,97.59
+avibe_baseline,ru_arena_hard,"Concurrency, Sockets, and Webhooks",15,5.2581,512,97.37
+avibe_baseline,ru_arena_hard,Hospital Design & Management,16,3.0015,293,97.62
+avibe_baseline,ru_arena_hard,HLSL Shader Decompilation Refactoring,17,5.2517,512,97.49
+avibe_baseline,ru_arena_hard,"PHP, CORS, and Server Requests",18,2.8340,273,96.33
+avibe_baseline,ru_arena_hard,PHP CalDAV & SCIM Integration,19,5.2561,512,97.41
+avibe_baseline,ru_arena_hard,Linux Kernel and Memory Mapping,20,5.2413,512,97.69
+avibe_baseline,ru_arena_hard,Sales and Client Analysis,21,5.2533,512,97.46
+avibe_baseline,ru_arena_hard,Python Data Structures,22,5.1354,501,97.56
+avibe_baseline,ru_arena_hard,Endurance Race Training,23,5.2705,512,97.15
+avibe_baseline,ru_arena_hard,Marketing Strategy Essentials,24,5.2480,512,97.56
+avibe_baseline,ru_arena_hard,Time Calculations & Conversions,25,5.2521,512,97.49
+avibe_baseline,ru_arena_hard,Number Substitution Patterns,26,3.8141,372,97.53
+avibe_baseline,ru_arena_hard,Text Processing with Awk/Sed/Grep,27,5.3341,512,95.99
+avibe_baseline,ru_arena_hard,Healthy Meal Planning,28,5.2413,512,97.69
+avibe_baseline,ru_arena_hard,"Concurrency, Sockets, and Webhooks",29,5.2527,512,97.47
+avibe_baseline,ru_arena_hard,Dockerizing Python Applications,30,3.4115,333,97.61
+avibe_baseline,ru_arena_hard,Linux Package Management Issues,31,2.8356,276,97.33
+avibe_baseline,ru_arena_hard,GPU Performance and Selection,32,5.2537,512,97.46
+avibe_baseline,ru_arena_hard,Chatbot Development & Integration,33,5.2432,512,97.65
+avibe_baseline,ru_arena_hard,Smart Home Automation Controls,34,5.2432,512,97.65
+avibe_baseline,ru_arena_hard,Rubik's Cube & Puzzles,35,5.2581,512,97.37
+avibe_baseline,ru_arena_hard,Probability Distributions & Statistics,36,5.2762,512,97.04
+avibe_baseline,ru_arena_hard,Computers and Comparative Truths,37,5.2440,512,97.64
+avibe_baseline,ru_arena_hard,Subtitle Encoding and Conversion,38,5.3719,512,95.31
+avibe_baseline,ru_arena_hard,Tidyverse Data Manipulation,39,5.2559,512,97.41
+avibe_baseline,ru_arena_hard,Fixing Fibonacci & Factorial Code,40,5.2421,512,97.67
+avibe_baseline,ru_arena_hard,Rust Structs and Traits,41,3.4116,333,97.61
+avibe_baseline,ru_arena_hard,Investment Growth Calculations,42,5.2666,512,97.22
+avibe_baseline,ru_arena_hard,Keyboard Key Functions & Layout,43,4.8037,469,97.63
+avibe_baseline,ru_arena_hard,Roblox Scripting and Mechanics,44,5.2501,512,97.52
+avibe_baseline,ru_arena_hard,Sentiment Analysis Evaluations,45,5.2605,512,97.33
+avibe_baseline,ru_arena_hard,Cron Job Scheduling Issues,46,5.2424,512,97.66
+avibe_baseline,ru_arena_hard,Array Positioning & SAT Solving,47,5.2620,512,97.30
+avibe_baseline,ru_arena_hard,Systematic Information Retrieval Plan,48,5.2482,512,97.56
+avibe_baseline,ru_arena_hard,AI Image Upscaling,49,4.3429,424,97.63
+avibe_baseline,ru_arena_hard,Proving Square Root Irrationality,50,5.2513,512,97.50
+avibe_baseline,ru_arena_hard,Python Concurrency Challenges,51,4.4398,433,97.53
+avibe_baseline,ru_arena_hard,DDR4 RAM Specifications 32GB,52,5.2606,512,97.33
+avibe_baseline,ru_arena_hard,AI Image Upscaling,53,5.2419,512,97.67
+avibe_baseline,ru_arena_hard,AI Startup Business Strategies,54,5.0210,490,97.59
+avibe_baseline,ru_arena_hard,Medical Conditions and Procedures,55,5.2537,512,97.46
+avibe_baseline,ru_arena_hard,Business Operations Analysis,56,5.2742,512,97.08
+avibe_baseline,ru_arena_hard,Kotlin Development & Techniques,57,5.2498,512,97.53
+avibe_baseline,ru_arena_hard,Basic Assembly Operations,58,4.5184,441,97.60
+avibe_baseline,ru_arena_hard,Video Downloading Techniques,59,5.2510,512,97.51
+avibe_baseline,ru_arena_hard,Retrieval-Augmented Generation Tech,60,5.2423,512,97.67
+avibe_baseline,ru_arena_hard,English Longest Words Inquiry,61,5.2436,512,97.64
+avibe_baseline,ru_arena_hard,Fibonacci Sequence Algorithms,62,5.2536,512,97.46
+avibe_baseline,ru_arena_hard,Fixing Fibonacci & Factorial Code,63,4.1368,404,97.66
+avibe_baseline,ru_arena_hard,Pricing Optimization & Econometrics,64,5.2591,512,97.36
+avibe_baseline,ru_arena_hard,"Symfony, Doctrine, CQRS/Event Sourcing",65,5.2593,512,97.35
+avibe_baseline,ru_arena_hard,JSON Menu Response Handling,66,5.2805,512,96.96
+avibe_baseline,ru_arena_hard,Prime and Perfect Number Calculations,67,5.2456,512,97.61
+avibe_baseline,ru_arena_hard,Product Reinvention Analysis,68,5.2725,512,97.11
+avibe_baseline,ru_arena_hard,Gradient Descent Optimization,69,5.2422,512,97.67
+avibe_baseline,ru_arena_hard,ABC Sequence Puzzles & Groups,70,5.3045,512,96.52
+avibe_baseline,ru_arena_hard,AWS Cloud Services Essentials,71,5.2509,512,97.51
+avibe_baseline,ru_arena_hard,Video Download & Bot Scripts,72,5.2414,512,97.68
+avibe_baseline,ru_arena_hard,Lambda Calculus Object Classification,73,5.2566,512,97.40
+avibe_baseline,ru_arena_hard,Data Processing and Integration,74,5.2669,512,97.21
+avibe_baseline,ru_arena_hard,Monads in Functional Programming,75,5.2481,512,97.56
+avibe_baseline,ru_arena_hard,Digital Advertising Insights,76,5.2460,512,97.60
+avibe_baseline,ru_arena_hard,Nix/NixOS Configuration & Usage,77,4.6582,455,97.68
+avibe_baseline,ru_arena_hard,Advanced Algebra and Number Theory,78,5.2580,512,97.38
+avibe_baseline,ru_arena_hard,Chatbot Development & Integration,79,5.2471,512,97.58

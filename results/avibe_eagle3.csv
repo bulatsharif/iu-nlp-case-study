@@ -1,0 +1,78 @@
+config_name,dataset,category,prompt_idx,wall_s,out_tokens,tok_per_s
+avibe_eagle3,ru_arena_hard,Binance USDT Historical Data,3,14.2894,512,35.83
+avibe_eagle3,ru_arena_hard,Prompt Engineering Essentials,4,15.2294,512,33.62
+avibe_eagle3,ru_arena_hard,Python Looping and Counting,5,8.1344,371,45.61
+avibe_eagle3,ru_arena_hard,Grocery Industry Disruption,6,16.6081,512,30.83
+avibe_eagle3,ru_arena_hard,Conflicting Instructions Challenge,7,14.2046,512,36.04
+avibe_eagle3,ru_arena_hard,"Bob, Alice, Relationships & Interactions",8,12.0357,512,42.54
+avibe_eagle3,ru_arena_hard,Local LLM Deployment & Specs,9,15.3405,512,33.38
+avibe_eagle3,ru_arena_hard,Computing Standard Deviation,10,17.3295,512,29.54
+avibe_eagle3,ru_arena_hard,Character Indexing and Counting,11,13.5257,512,37.85
+avibe_eagle3,ru_arena_hard,Rust Structs and Traits,12,15.5708,512,32.88
+avibe_eagle3,ru_arena_hard,Excel Column Addressing,13,15.2626,512,33.55
+avibe_eagle3,ru_arena_hard,Advanced TypeScript Concepts,14,12.2044,447,36.63
+avibe_eagle3,ru_arena_hard,"Concurrency, Sockets, and Webhooks",15,14.9198,512,34.32
+avibe_eagle3,ru_arena_hard,Hospital Design & Management,16,10.1055,293,28.99
+avibe_eagle3,ru_arena_hard,HLSL Shader Decompilation Refactoring,17,19.2391,512,26.61
+avibe_eagle3,ru_arena_hard,"PHP, CORS, and Server Requests",18,6.6831,273,40.85
+avibe_eagle3,ru_arena_hard,PHP CalDAV & SCIM Integration,19,13.9599,512,36.68
+avibe_eagle3,ru_arena_hard,Linux Kernel and Memory Mapping,20,17.6673,512,28.98
+avibe_eagle3,ru_arena_hard,Sales and Client Analysis,21,12.7509,512,40.15
+avibe_eagle3,ru_arena_hard,Python Data Structures,22,11.6555,501,42.98
+avibe_eagle3,ru_arena_hard,Endurance Race Training,23,14.2596,512,35.91
+avibe_eagle3,ru_arena_hard,Marketing Strategy Essentials,24,10.7658,512,47.56
+avibe_eagle3,ru_arena_hard,Time Calculations & Conversions,25,7.4359,512,68.86
+avibe_eagle3,ru_arena_hard,Number Substitution Patterns,26,9.0043,372,41.31
+avibe_eagle3,ru_arena_hard,Text Processing with Awk/Sed/Grep,27,13.6201,512,37.59
+avibe_eagle3,ru_arena_hard,Healthy Meal Planning,28,11.9197,512,42.95
+avibe_eagle3,ru_arena_hard,"Concurrency, Sockets, and Webhooks",29,13.7726,512,37.18
+avibe_eagle3,ru_arena_hard,Dockerizing Python Applications,30,9.4649,333,35.18
+avibe_eagle3,ru_arena_hard,Linux Package Management Issues,31,11.1615,342,30.64
+avibe_eagle3,ru_arena_hard,GPU Performance and Selection,32,17.3817,512,29.46
+avibe_eagle3,ru_arena_hard,Chatbot Development & Integration,33,13.0336,512,39.28
+avibe_eagle3,ru_arena_hard,Smart Home Automation Controls,34,15.4956,512,33.04
+avibe_eagle3,ru_arena_hard,Rubik's Cube & Puzzles,35,15.9543,512,32.09
+avibe_eagle3,ru_arena_hard,Probability Distributions & Statistics,36,12.5096,512,40.93
+avibe_eagle3,ru_arena_hard,Computers and Comparative Truths,37,16.5646,512,30.91
+avibe_eagle3,ru_arena_hard,Subtitle Encoding and Conversion,38,14.7045,512,34.82
+avibe_eagle3,ru_arena_hard,Tidyverse Data Manipulation,39,13.7942,512,37.12
+avibe_eagle3,ru_arena_hard,Fixing Fibonacci & Factorial Code,40,12.0420,512,42.52
+avibe_eagle3,ru_arena_hard,Rust Structs and Traits,41,7.6556,327,42.71
+avibe_eagle3,ru_arena_hard,Investment Growth Calculations,42,10.6163,512,48.23
+avibe_eagle3,ru_arena_hard,Keyboard Key Functions & Layout,43,17.9194,469,26.17
+avibe_eagle3,ru_arena_hard,Roblox Scripting and Mechanics,44,24.4770,512,20.92
+avibe_eagle3,ru_arena_hard,Sentiment Analysis Evaluations,45,17.9891,512,28.46
+avibe_eagle3,ru_arena_hard,Cron Job Scheduling Issues,46,12.4703,512,41.06
+avibe_eagle3,ru_arena_hard,Array Positioning & SAT Solving,47,13.3129,512,38.46
+avibe_eagle3,ru_arena_hard,Systematic Information Retrieval Plan,48,13.8834,512,36.88
+avibe_eagle3,ru_arena_hard,AI Image Upscaling,49,16.8088,424,25.22
+avibe_eagle3,ru_arena_hard,Proving Square Root Irrationality,50,14.5288,512,35.24
+avibe_eagle3,ru_arena_hard,Python Concurrency Challenges,51,12.6250,433,34.30
+avibe_eagle3,ru_arena_hard,DDR4 RAM Specifications 32GB,52,16.6858,512,30.68
+avibe_eagle3,ru_arena_hard,AI Image Upscaling,53,21.2210,512,24.13
+avibe_eagle3,ru_arena_hard,AI Startup Business Strategies,54,22.2011,490,22.07
+avibe_eagle3,ru_arena_hard,Medical Conditions and Procedures,55,12.0090,512,42.63
+avibe_eagle3,ru_arena_hard,Business Operations Analysis,56,16.1563,512,31.69
+avibe_eagle3,ru_arena_hard,Kotlin Development & Techniques,57,17.1130,512,29.92
+avibe_eagle3,ru_arena_hard,Basic Assembly Operations,58,16.8444,441,26.18
+avibe_eagle3,ru_arena_hard,Video Downloading Techniques,59,16.2186,512,31.57
+avibe_eagle3,ru_arena_hard,Retrieval-Augmented Generation Tech,60,28.4299,512,18.01
+avibe_eagle3,ru_arena_hard,English Longest Words Inquiry,61,18.5964,512,27.53
+avibe_eagle3,ru_arena_hard,Fibonacci Sequence Algorithms,62,13.6087,512,37.62
+avibe_eagle3,ru_arena_hard,Fixing Fibonacci & Factorial Code,63,13.7824,404,29.31
+avibe_eagle3,ru_arena_hard,Pricing Optimization & Econometrics,64,11.3560,512,45.09
+avibe_eagle3,ru_arena_hard,"Symfony, Doctrine, CQRS/Event Sourcing",65,13.9357,512,36.74
+avibe_eagle3,ru_arena_hard,JSON Menu Response Handling,66,10.2012,512,50.19
+avibe_eagle3,ru_arena_hard,Prime and Perfect Number Calculations,67,12.8096,512,39.97
+avibe_eagle3,ru_arena_hard,Product Reinvention Analysis,68,25.5420,512,20.05
+avibe_eagle3,ru_arena_hard,Gradient Descent Optimization,69,21.6975,512,23.60
+avibe_eagle3,ru_arena_hard,ABC Sequence Puzzles & Groups,70,15.2136,512,33.65
+avibe_eagle3,ru_arena_hard,AWS Cloud Services Essentials,71,17.7563,512,28.83
+avibe_eagle3,ru_arena_hard,Video Download & Bot Scripts,72,11.8264,512,43.29
+avibe_eagle3,ru_arena_hard,Lambda Calculus Object Classification,73,11.3181,512,45.24
+avibe_eagle3,ru_arena_hard,Data Processing and Integration,74,17.3457,512,29.52
+avibe_eagle3,ru_arena_hard,Monads in Functional Programming,75,17.9052,512,28.60
+avibe_eagle3,ru_arena_hard,Digital Advertising Insights,76,15.5529,512,32.92
+avibe_eagle3,ru_arena_hard,Nix/NixOS Configuration & Usage,77,14.9096,455,30.52
+avibe_eagle3,ru_arena_hard,Advanced Algebra and Number Theory,78,12.4493,512,41.13
+avibe_eagle3,ru_arena_hard,Chatbot Development & Integration,79,15.1870,512,33.71

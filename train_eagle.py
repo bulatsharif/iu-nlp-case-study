@@ -1,7 +1,18 @@
-"""Train an EAGLE3 draft module on Llama-3.2-1B with 20k Daring-Anteater samples, 1 epoch."""
+"""Train an EAGLE3 draft module on Llama-3.2-1B-Instruct with 80k UltraChat-200k samples, 1 epoch.
+
+Why this setup:
+  * Base model is the **Instruct** variant, not the pretrained base. EAGLE-3 needs the
+    draft's output distribution to match what the target actually emits at inference
+    time; a base model on MT-Bench just continues the prompt, so a draft trained on
+    chat-style text had near-zero acceptance rate in the previous run (observed 0.75x
+    slowdown vs. baseline). SpecForge / the EAGLE-3 paper both use the `-Instruct`
+    variant as target.
+  * UltraChat-200k is one of the two canonical EAGLE-3 training sets (alongside
+    ShareGPT). It's already in clean alternating user/assistant format, so we only
+    need to rename `role`→`from` / `content`→`value` to match the eagle_utils schema.
+"""
 import json
 import random
-import subprocess
 import sys
 import urllib.request
 from dataclasses import dataclass, field
@@ -18,15 +29,17 @@ EAGLE_UTILS_URL = (
 )
 EAGLE_UTILS_PATH = ROOT / "eagle_utils.py"
 
-BASE_MODEL = "unsloth/Llama-3.2-1B"
-DATASET_DIR = Path("/tmp/Daring-Anteater")
+BASE_MODEL = "unsloth/Llama-3.2-1B-Instruct"
+DATASET_REPO = "HuggingFaceH4/ultrachat_200k"
+DATASET_SPLIT = "train_sft"
+DATASET_CACHE = Path("/tmp/ultrachat_200k.jsonl")
 OUTPUT_DIR = ROOT / "eagle_out"
 EXPORT_DIR = ROOT / "eagle_hf_ckpt"
 LOSS_JSON = ROOT / "results" / "train_loss.json"
 LOSS_PLOT = ROOT / "plots" / "train_loss.png"
 
 N_SAMPLES = 80_000
-N_EPOCHS = 2
+N_EPOCHS = 1
 SEED = 42
 
 
@@ -38,33 +51,61 @@ def ensure_eagle_utils() -> None:
 
 
 def ensure_dataset() -> None:
-    if (DATASET_DIR / "train.jsonl").exists():
+    """Download UltraChat-200k and cache it as a normalized JSONL file.
+
+    We convert {role, content} → {from, value} on the fly so the file matches
+    the schema eagle_utils.preprocess expects (Daring-Anteater/ShareGPT style).
+    """
+    if DATASET_CACHE.exists():
         return
-    print(f"cloning Daring-Anteater → {DATASET_DIR}")
-    subprocess.run(
-        ["git", "clone",
-         "https://huggingface.co/datasets/nvidia/Daring-Anteater",
-         str(DATASET_DIR)],
-        check=True,
-    )
+    from datasets import load_dataset
+
+    print(f"downloading {DATASET_REPO}:{DATASET_SPLIT} → {DATASET_CACHE}")
+    ds = load_dataset(DATASET_REPO, split=DATASET_SPLIT)
+    kept = 0
+    skipped = 0
+    DATASET_CACHE.parent.mkdir(parents=True, exist_ok=True)
+    with DATASET_CACHE.open("w", encoding="utf-8") as f:
+        for row in ds:
+            msgs = row.get("messages") or []
+            # eagle_utils expects strictly alternating user/assistant starting with user.
+            if not msgs or msgs[0].get("role") != "user":
+                skipped += 1
+                continue
+            expected = "user"
+            turns = []
+            ok = True
+            for m in msgs:
+                if m.get("role") != expected or not (m.get("content") or "").strip():
+                    ok = False
+                    break
+                turns.append({"from": m["role"], "value": m["content"]})
+                expected = "assistant" if expected == "user" else "user"
+            # Trailing dangling user turn has no target to learn from.
+            if len(turns) % 2 == 1:
+                turns = turns[:-1]
+            if not ok or len(turns) < 2:
+                skipped += 1
+                continue
+            f.write(json.dumps({"conversations": turns}, ensure_ascii=False) + "\n")
+            kept += 1
+    print(f"normalized {kept} rows (skipped {skipped}) → {DATASET_CACHE}")
 
 
 def load_and_sample() -> list[dict]:
-    with (DATASET_DIR / "train.jsonl").open() as f:
+    with DATASET_CACHE.open() as f:
         data = [json.loads(line) for line in f]
-    # Real Daring-Anteater ships ~99k rows. If we somehow got orders of
-    # magnitude fewer (e.g. a stale dry-run stub at DATASET_DIR shadowed
-    # the real clone), abort so the user notices instead of training on
-    # garbage.
+    # UltraChat-200k ships ~207k rows after our cleanup. If we got orders of
+    # magnitude fewer something corrupted the cache; bail loudly.
     if len(data) < N_SAMPLES // 2:
         raise RuntimeError(
-            f"{DATASET_DIR/'train.jsonl'} has only {len(data)} rows, expected "
-            f">= {N_SAMPLES // 2}. Remove the directory and re-run so the real "
+            f"{DATASET_CACHE} has only {len(data)} rows, expected "
+            f">= {N_SAMPLES // 2}. Delete the file and re-run so the real "
             "dataset is fetched."
         )
     random.Random(SEED).shuffle(data)
     sample = data[:N_SAMPLES]
-    print(f"sampled {len(sample)} / {len(data)} rows from Daring-Anteater (seed={SEED})")
+    print(f"sampled {len(sample)} / {len(data)} rows from {DATASET_REPO} (seed={SEED})")
     return sample
 
 
@@ -99,12 +140,13 @@ def build_model_and_tokenizer():
 
     tokenizer = transformers.AutoTokenizer.from_pretrained(BASE_MODEL, model_max_length=1024)
     tokenizer.pad_token_id = tokenizer.eos_token_id
-    if tokenizer.chat_template is None:
-        tokenizer.chat_template = (
-            "{%- for message in messages %}"
-            "{{- '<|im_start|>' + message['role'] + '\n' + message['content'] + '<|im_end|>' + '\n' }}"
-            "{%- endfor %}"
-        )
+    # The Instruct tokenizer ships with the canonical Llama-3 chat template, so
+    # we do NOT stub a ChatML fallback here (that template was only needed when
+    # we were training against the base model).
+    assert tokenizer.chat_template is not None, (
+        f"{BASE_MODEL} tokenizer has no chat_template; the draft must be trained "
+        "on text tokenized in the exact format the target emits at inference."
+    )
     return model, tokenizer
 
 
@@ -134,7 +176,10 @@ def extract_and_plot_loss(trainer) -> None:
     ax.plot(steps, losses, color="#1f77b4", linewidth=1.2)
     ax.set_xlabel("step")
     ax.set_ylabel("training loss")
-    ax.set_title(f"EAGLE3 draft on {BASE_MODEL} — {N_SAMPLES} samples, {N_EPOCHS} epoch")
+    ax.set_title(
+        f"EAGLE3 draft on {BASE_MODEL}\n"
+        f"{DATASET_REPO} — {N_SAMPLES} samples, {N_EPOCHS} epoch"
+    )
     fig.tight_layout()
     fig.savefig(LOSS_PLOT, dpi=160)
     print(f"saved {LOSS_PLOT}")

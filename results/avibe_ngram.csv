@@ -1,0 +1,78 @@
+config_name,dataset,category,prompt_idx,wall_s,out_tokens,tok_per_s
+avibe_ngram,ru_arena_hard,Binance USDT Historical Data,3,3.4378,512,148.93
+avibe_ngram,ru_arena_hard,Prompt Engineering Essentials,4,3.3838,512,151.31
+avibe_ngram,ru_arena_hard,Python Looping and Counting,5,3.4472,371,107.62
+avibe_ngram,ru_arena_hard,Grocery Industry Disruption,6,5.3178,512,96.28
+avibe_ngram,ru_arena_hard,Conflicting Instructions Challenge,7,4.6740,512,109.54
+avibe_ngram,ru_arena_hard,"Bob, Alice, Relationships & Interactions",8,4.4946,512,113.91
+avibe_ngram,ru_arena_hard,Local LLM Deployment & Specs,9,5.0218,512,101.96
+avibe_ngram,ru_arena_hard,Computing Standard Deviation,10,5.1354,512,99.70
+avibe_ngram,ru_arena_hard,Character Indexing and Counting,11,4.1601,512,123.08
+avibe_ngram,ru_arena_hard,Rust Structs and Traits,12,4.4599,512,114.80
+avibe_ngram,ru_arena_hard,Excel Column Addressing,13,4.1602,512,123.07
+avibe_ngram,ru_arena_hard,Advanced TypeScript Concepts,14,4.9742,447,89.86
+avibe_ngram,ru_arena_hard,"Concurrency, Sockets, and Webhooks",15,5.3336,512,95.99
+avibe_ngram,ru_arena_hard,Hospital Design & Management,16,3.0601,293,95.75
+avibe_ngram,ru_arena_hard,HLSL Shader Decompilation Refactoring,17,5.0635,512,101.12
+avibe_ngram,ru_arena_hard,"PHP, CORS, and Server Requests",18,2.6341,273,103.64
+avibe_ngram,ru_arena_hard,PHP CalDAV & SCIM Integration,19,5.5327,512,92.54
+avibe_ngram,ru_arena_hard,Linux Kernel and Memory Mapping,20,5.7925,512,88.39
+avibe_ngram,ru_arena_hard,Sales and Client Analysis,21,4.3351,512,118.11
+avibe_ngram,ru_arena_hard,Python Data Structures,22,4.7835,501,104.73
+avibe_ngram,ru_arena_hard,Endurance Race Training,23,4.5016,512,113.74
+avibe_ngram,ru_arena_hard,Marketing Strategy Essentials,24,2.0282,512,252.44
+avibe_ngram,ru_arena_hard,Time Calculations & Conversions,25,2.0507,512,249.67
+avibe_ngram,ru_arena_hard,Number Substitution Patterns,26,3.2091,372,115.92
+avibe_ngram,ru_arena_hard,Text Processing with Awk/Sed/Grep,27,1.4911,512,343.38
+avibe_ngram,ru_arena_hard,Healthy Meal Planning,28,2.2954,512,223.05
+avibe_ngram,ru_arena_hard,"Concurrency, Sockets, and Webhooks",29,4.4282,512,115.62
+avibe_ngram,ru_arena_hard,Dockerizing Python Applications,30,3.1933,333,104.28
+avibe_ngram,ru_arena_hard,Linux Package Management Issues,31,2.5795,274,106.22
+avibe_ngram,ru_arena_hard,GPU Performance and Selection,32,5.0548,512,101.29
+avibe_ngram,ru_arena_hard,Chatbot Development & Integration,33,5.2533,512,97.46
+avibe_ngram,ru_arena_hard,Smart Home Automation Controls,34,4.6525,512,110.05
+avibe_ngram,ru_arena_hard,Rubik's Cube & Puzzles,35,1.0823,512,473.08
+avibe_ngram,ru_arena_hard,Probability Distributions & Statistics,36,2.3140,512,221.26
+avibe_ngram,ru_arena_hard,Computers and Comparative Truths,37,5.0050,512,102.30
+avibe_ngram,ru_arena_hard,Subtitle Encoding and Conversion,38,4.3679,512,117.22
+avibe_ngram,ru_arena_hard,Tidyverse Data Manipulation,39,3.2550,512,157.30
+avibe_ngram,ru_arena_hard,Fixing Fibonacci & Factorial Code,40,4.6420,512,110.30
+avibe_ngram,ru_arena_hard,Rust Structs and Traits,41,2.8781,333,115.70
+avibe_ngram,ru_arena_hard,Investment Growth Calculations,42,2.8812,512,177.70
+avibe_ngram,ru_arena_hard,Keyboard Key Functions & Layout,43,5.1919,469,90.33
+avibe_ngram,ru_arena_hard,Roblox Scripting and Mechanics,44,3.8201,512,134.03
+avibe_ngram,ru_arena_hard,Sentiment Analysis Evaluations,45,4.9018,512,104.45
+avibe_ngram,ru_arena_hard,Cron Job Scheduling Issues,46,1.3467,512,380.17
+avibe_ngram,ru_arena_hard,Array Positioning & SAT Solving,47,4.5556,512,112.39
+avibe_ngram,ru_arena_hard,Systematic Information Retrieval Plan,48,4.9402,512,103.64
+avibe_ngram,ru_arena_hard,AI Image Upscaling,49,4.5080,424,94.06
+avibe_ngram,ru_arena_hard,Proving Square Root Irrationality,50,3.3965,512,150.74
+avibe_ngram,ru_arena_hard,Python Concurrency Challenges,51,4.7697,433,90.78
+avibe_ngram,ru_arena_hard,DDR4 RAM Specifications 32GB,52,4.3143,512,118.68
+avibe_ngram,ru_arena_hard,AI Image Upscaling,53,5.1235,512,99.93
+avibe_ngram,ru_arena_hard,AI Startup Business Strategies,54,4.9815,490,98.36
+avibe_ngram,ru_arena_hard,Medical Conditions and Procedures,55,1.1212,512,456.65
+avibe_ngram,ru_arena_hard,Business Operations Analysis,56,4.0821,512,125.42
+avibe_ngram,ru_arena_hard,Kotlin Development & Techniques,57,2.2059,512,232.11
+avibe_ngram,ru_arena_hard,Basic Assembly Operations,58,4.1669,512,122.87
+avibe_ngram,ru_arena_hard,Video Downloading Techniques,59,3.1149,512,164.37
+avibe_ngram,ru_arena_hard,Retrieval-Augmented Generation Tech,60,5.1368,512,99.67
+avibe_ngram,ru_arena_hard,English Longest Words Inquiry,61,4.4655,512,114.66
+avibe_ngram,ru_arena_hard,Fibonacci Sequence Algorithms,62,2.2036,512,232.35
+avibe_ngram,ru_arena_hard,Fixing Fibonacci & Factorial Code,63,3.6035,404,112.11
+avibe_ngram,ru_arena_hard,Pricing Optimization & Econometrics,64,1.2796,512,400.13
+avibe_ngram,ru_arena_hard,"Symfony, Doctrine, CQRS/Event Sourcing",65,1.3909,512,368.10
+avibe_ngram,ru_arena_hard,JSON Menu Response Handling,66,2.7636,512,185.27
+avibe_ngram,ru_arena_hard,Prime and Perfect Number Calculations,67,3.6045,512,142.04
+avibe_ngram,ru_arena_hard,Product Reinvention Analysis,68,4.9180,512,104.11
+avibe_ngram,ru_arena_hard,Gradient Descent Optimization,69,5.2759,512,97.05
+avibe_ngram,ru_arena_hard,ABC Sequence Puzzles & Groups,70,5.0918,512,100.55
+avibe_ngram,ru_arena_hard,AWS Cloud Services Essentials,71,5.1995,512,98.47
+avibe_ngram,ru_arena_hard,Video Download & Bot Scripts,72,3.0607,512,167.28
+avibe_ngram,ru_arena_hard,Lambda Calculus Object Classification,73,4.1614,512,123.04
+avibe_ngram,ru_arena_hard,Data Processing and Integration,74,4.6325,512,110.52
+avibe_ngram,ru_arena_hard,Monads in Functional Programming,75,5.2334,512,97.83
+avibe_ngram,ru_arena_hard,Digital Advertising Insights,76,4.9374,512,103.70
+avibe_ngram,ru_arena_hard,Nix/NixOS Configuration & Usage,77,4.3166,455,105.41
+avibe_ngram,ru_arena_hard,Advanced Algebra and Number Theory,78,3.0613,512,167.25
+avibe_ngram,ru_arena_hard,Chatbot Development & Integration,79,3.9169,512,130.72

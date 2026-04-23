@@ -20,6 +20,7 @@ CONFIG_META = {
 }
 BASELINE_OF = {"Qwen3-8B": "qwen_baseline", "A-Vibe": "avibe_baseline"}
 METHOD_COLORS = {"baseline": "#8a8a8a", "ngram": "#1f77b4", "eagle3": "#d62728"}
+DOMAIN_PLOT_TARGET = "Qwen3-8B"
 
 
 def load_all() -> pd.DataFrame:
@@ -53,9 +54,11 @@ def print_summary(df: pd.DataFrame, spec: pd.DataFrame) -> None:
     tps = df.groupby(["target", "method"])["tok_per_s"].agg(["mean", "std", "count"])
     print(tps.round(2).to_string())
 
-    print("\n=== mean speedup vs baseline, by target × method × category ===")
-    summ = (spec.groupby(["target", "method", "category"])["speedup"]
-                .agg(["mean", "std", "count"]).round(3))
+    print("\n=== mean speedup vs baseline, by target × method × category "
+          f"({DOMAIN_PLOT_TARGET} only; A-Vibe ru-arena clusters omitted here) ===")
+    summ = (spec[spec.target == DOMAIN_PLOT_TARGET]
+            .groupby(["target", "method", "category"])["speedup"]
+            .agg(["mean", "std", "count"]).round(3))
     print(summ.to_string())
 
     print("\n=== mean speedup vs baseline, by target × method ===")
@@ -64,39 +67,43 @@ def print_summary(df: pd.DataFrame, spec: pd.DataFrame) -> None:
     print(overall.to_string())
 
 
+def _draw_vertical_domain_bars(
+    ax, sub: pd.DataFrame, target: str, methods: list[str]
+) -> None:
+    cats = sorted(sub["category"].unique())
+    x = np.arange(len(cats))
+    width = 0.38
+    for i, m in enumerate(methods):
+        means, stds = [], []
+        for c in cats:
+            vals = sub[(sub.method == m) & (sub.category == c)]["speedup"]
+            means.append(vals.mean() if len(vals) else np.nan)
+            stds.append(vals.std() if len(vals) > 1 else 0.0)
+        offset = (i - 0.5) * width
+        ax.bar(
+            x + offset, means, width, yerr=stds, capsize=3, label=m,
+            color=METHOD_COLORS[m], edgecolor="black", linewidth=0.5,
+        )
+    ax.axhline(1.0, color="black", linewidth=0.8, linestyle="--")
+    ax.set_xticks(x)
+    ax.set_xticklabels(cats, rotation=30, ha="right", fontsize=9)
+    ax.set_title(target, fontsize=12)
+    ax.set_ylabel("speedup vs baseline (tok/s ratio)")
+    ax.legend(loc="upper left", frameon=False)
+
+
 def plot_speedup_by_domain(spec: pd.DataFrame, out: Path) -> None:
-    targets = ["Qwen3-8B", "A-Vibe"]
-    fig, axes = plt.subplots(1, 2, figsize=(14, 5.5), sharey=True)
-
-    for ax, target in zip(axes, targets):
-        sub = spec[spec.target == target]
-        if sub.empty:
-            ax.set_title(f"{target}  (no data)")
-            continue
-        cats = sorted(sub["category"].unique())
-        methods = ["ngram", "eagle3"]
-        x = np.arange(len(cats))
-        width = 0.38
-
-        for i, m in enumerate(methods):
-            means, stds = [], []
-            for c in cats:
-                vals = sub[(sub.method == m) & (sub.category == c)]["speedup"]
-                means.append(vals.mean() if len(vals) else np.nan)
-                stds.append(vals.std() if len(vals) > 1 else 0.0)
-            offset = (i - 0.5) * width
-            ax.bar(x + offset, means, width, yerr=stds, capsize=3,
-                   label=m, color=METHOD_COLORS[m], edgecolor="black", linewidth=0.5)
-
-        ax.axhline(1.0, color="black", linewidth=0.8, linestyle="--")
-        ax.set_xticks(x)
-        ax.set_xticklabels(cats, rotation=30, ha="right", fontsize=9)
-        ax.set_title(target, fontsize=12)
-        ax.set_ylabel("speedup vs baseline (tok/s ratio)")
-        ax.legend(loc="upper left", frameon=False)
-
-    fig.suptitle("Per-domain speculative decoding speedup", fontsize=13)
-    fig.tight_layout()
+    methods = ["ngram", "eagle3"]
+    sub = spec[spec.target == DOMAIN_PLOT_TARGET]
+    fig, ax = plt.subplots(figsize=(9, 5.5), layout="constrained")
+    if sub.empty:
+        ax.set_title(f"{DOMAIN_PLOT_TARGET}  (no data)")
+    else:
+        _draw_vertical_domain_bars(ax, sub, DOMAIN_PLOT_TARGET, methods)
+    fig.suptitle(
+        "Per-domain speculative decoding speedup (MT-Bench categories, Qwen3-8B only)",
+        fontsize=12,
+    )
     PLOTS_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(out, dpi=160)
     print(f"saved {out}")

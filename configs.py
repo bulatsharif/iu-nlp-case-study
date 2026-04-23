@@ -58,12 +58,6 @@ CONFIGS: dict[str, ExpConfig] = {
         target_model=AVIBE, dtype="float16",
         dataset="ru_arena_hard", method="eagle3",
         draft_model=AVIBE_EAGLE,
-        # avibe + avibe-eagle together report ~28 GiB during vLLM's
-        # model-loading phase, leaving almost no headroom for KV cache on a
-        # 31.36 GiB RTX 5090. Disable cudagraphs (avoids cudagraph-memory
-        # profiling OOM) and shrink the serving context so a full max_tokens
-        # generation still fits in the KV cache budget. Prompts + 512 new
-        # tokens stay well under 2048 on MT-Bench / ru-arena-hard.
         gpu_memory_utilization=0.97,
         enforce_eager=True,
         max_model_len=2048,

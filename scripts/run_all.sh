@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Runs all six benchmark configs sequentially, then analyzes.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."

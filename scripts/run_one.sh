@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Run a single config by name. Usage: bash scripts/run_one.sh qwen_eagle3
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
