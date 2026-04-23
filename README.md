@@ -49,7 +49,7 @@ bash scripts/run_one.sh qwen_eagle3
 
 ## Training experiment 
 
-A second experiment trains an EAGLE3 draft module on `meta-llama/Llama-3.2-1B` using 20k Daring-Anteater samples for 1 epoch, then benchmarks it on MT-Bench only.
+A second experiment trains an EAGLE3 draft module on `unsloth/Llama-3.2-1B` (ungated mirror of `meta-llama/Llama-3.2-1B`) using 20k Daring-Anteater samples for 1 epoch, then benchmarks it on MT-Bench only.
 
 ```bash
 bash scripts/run_training.sh

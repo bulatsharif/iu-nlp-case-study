@@ -9,7 +9,7 @@ import torch
 import data_loader
 
 ROOT = Path(__file__).parent
-BASE_MODEL = "meta-llama/Llama-3.2-1B"
+BASE_MODEL = "unsloth/Llama-3.2-1B"
 EXPORT_DIR = ROOT / "eagle_hf_ckpt"
 RESULTS_DIR = ROOT / "results"
 

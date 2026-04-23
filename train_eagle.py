@@ -18,15 +18,15 @@ EAGLE_UTILS_URL = (
 )
 EAGLE_UTILS_PATH = ROOT / "eagle_utils.py"
 
-BASE_MODEL = "meta-llama/Llama-3.2-1B"
+BASE_MODEL = "unsloth/Llama-3.2-1B"
 DATASET_DIR = Path("/tmp/Daring-Anteater")
 OUTPUT_DIR = ROOT / "eagle_out"
 EXPORT_DIR = ROOT / "eagle_hf_ckpt"
 LOSS_JSON = ROOT / "results" / "train_loss.json"
 LOSS_PLOT = ROOT / "plots" / "train_loss.png"
 
-N_SAMPLES = 20_000
-N_EPOCHS = 1
+N_SAMPLES = 80_000
+N_EPOCHS = 2
 SEED = 42
 
 
@@ -52,6 +52,16 @@ def ensure_dataset() -> None:
 def load_and_sample() -> list[dict]:
     with (DATASET_DIR / "train.jsonl").open() as f:
         data = [json.loads(line) for line in f]
+    # Real Daring-Anteater ships ~99k rows. If we somehow got orders of
+    # magnitude fewer (e.g. a stale dry-run stub at DATASET_DIR shadowed
+    # the real clone), abort so the user notices instead of training on
+    # garbage.
+    if len(data) < N_SAMPLES // 2:
+        raise RuntimeError(
+            f"{DATASET_DIR/'train.jsonl'} has only {len(data)} rows, expected "
+            f">= {N_SAMPLES // 2}. Remove the directory and re-run so the real "
+            "dataset is fetched."
+        )
     random.Random(SEED).shuffle(data)
     sample = data[:N_SAMPLES]
     print(f"sampled {len(sample)} / {len(data)} rows from Daring-Anteater (seed={SEED})")
@@ -64,8 +74,14 @@ def build_model_and_tokenizer():
     from modelopt.torch.speculative.config import EAGLE3_DEFAULT_CFG
 
     mto.enable_huggingface_checkpointing()
+    # attn_implementation="eager": ModelOpt's eagle module feeds a non-standard
+    # attention mask (block-diagonal for the draft layer) that torch SDPA
+    # rejects across all backends on Blackwell (flash/mem-efficient/cuDNN all
+    # decline, and the math fallback then errors with "No available kernel").
+    # Eager is ~5-10% slower per step but is the only path that actually runs.
     model = transformers.AutoModelForCausalLM.from_pretrained(
-        BASE_MODEL, torch_dtype="auto", device_map="cuda"
+        BASE_MODEL, torch_dtype="auto", device_map="cuda",
+        attn_implementation="eager",
     )
 
     config = EAGLE3_DEFAULT_CFG["config"]
@@ -74,6 +90,10 @@ def build_model_and_tokenizer():
         "vocab_size": model.config.vocab_size,
         "draft_vocab_size": model.config.vocab_size,
         "max_position_embeddings": model.config.max_position_embeddings,
+        # Eagle module ships its own LlamaDecoderLayer that ignores the base
+        # model's attn_implementation; explicitly pin it to eager too,
+        # otherwise it stays on sdpa and crashes (see comment above).
+        "_attn_implementation": "eager",
     })
     mtsp.convert(model, [("eagle", config)])
 
@@ -133,6 +153,39 @@ def main() -> None:
     train_ds = LazySupervisedDataset(data[:split], tokenizer=tokenizer)
     eval_ds = LazySupervisedDataset(data[split:], tokenizer=tokenizer)
 
+    # Fixed-length padding: modelopt's eagle module caches the TTT attention
+    # mask keyed by ttt_step ONLY (see `_cached_attn_blk_masks` in
+    # modelopt.torch.speculative.plugins.transformers), so the seq_length from
+    # the first batch gets baked in. Variable-length batches then hit a
+    # [q_len, k_len] mismatch against the stale cached mask on ttt_step>=1.
+    # Upstream worked around this with `padding="max_length"` in
+    # LanguageDataCollator; we do the same by subclassing the old collator.
+    class FixedLengthCollator(DataCollatorWithPadding):
+        def __init__(self, pad_to: int):
+            self.pad_to = pad_to
+
+        def __call__(self, features):
+            import torch as _t
+            for item in features:
+                for k in ("input_ids", "attention_mask", "loss_mask", "labels"):
+                    if item[k].shape[0] > self.pad_to:
+                        item[k] = item[k][: self.pad_to]
+                # If eagle_utils' offset-mapping heuristic failed to tag any
+                # assistant tokens (or long prompts truncated the assistant
+                # span), loss_mask is all zeros and modelopt's eagle_loss
+                # evaluates to a scalar 0 tensor. That tensor then trips
+                # `eagle_loss or 0` in modelopt, collapsing `loss` to Python
+                # int 0 which breaks `.backward()`. Fall back to attention_mask
+                # so we at least train on all non-pad positions.
+                if int(item["loss_mask"].sum()) == 0:
+                    item["loss_mask"] = item["attention_mask"].clone().to(
+                        item["loss_mask"].dtype
+                    )
+            out = {}
+            for k in ("input_ids", "attention_mask", "loss_mask", "labels"):
+                out[k] = _t.stack([self.paddingtensor(f[k], self.pad_to) for f in features])
+            return out
+
     args = TrainingArguments(
         output_dir=str(OUTPUT_DIR),
         num_train_epochs=N_EPOCHS,
@@ -149,7 +202,7 @@ def main() -> None:
         args=args,
         train_dataset=train_ds,
         eval_dataset=eval_ds,
-        data_collator=DataCollatorWithPadding(),
+        data_collator=FixedLengthCollator(pad_to=tokenizer.model_max_length),
     )
     trainer._move_model_to_device(model, trainer.args.device)
     assert trainer.label_smoother is None, "label_smoother is not supported in speculative decoding!"
