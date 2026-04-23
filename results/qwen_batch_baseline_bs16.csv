@@ -1,0 +1,5 @@
+method,batch_size,batch_idx,wall_s,out_tokens,tok_per_s
+baseline,16,1,5.9286,8192,1381.77
+baseline,16,2,5.9171,8192,1384.46
+baseline,16,3,5.9975,8080,1347.23
+baseline,16,4,5.9116,8192,1385.74

@@ -1,0 +1,5 @@
+method,batch_size,batch_idx,wall_s,out_tokens,tok_per_s
+eagle3,16,1,6.8018,8192,1204.39
+eagle3,16,2,6.2389,8192,1313.05
+eagle3,16,3,6.9951,8192,1171.11
+eagle3,16,4,7.6886,8192,1065.47

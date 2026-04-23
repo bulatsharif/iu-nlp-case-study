@@ -1,0 +1,5 @@
+method,batch_size,batch_idx,wall_s,out_tokens,tok_per_s
+ngram,16,1,7.3018,8192,1121.91
+ngram,16,2,6.5021,8192,1259.90
+ngram,16,3,7.6502,8080,1056.18
+ngram,16,4,7.6675,8192,1068.41
